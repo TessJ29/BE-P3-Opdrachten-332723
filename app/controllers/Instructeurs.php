@@ -13,7 +13,9 @@ class Instructeurs extends Controller
     public function index()
     {
         $result = $this->instructeurModel->getInstructeurs();
-
+// var_dump($result);
+// echo count($result);
+$aantal = count($result);
         $rows = '';
         foreach ($result as $value) {
             $d = new DateTimeImmutable($value->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
@@ -28,9 +30,11 @@ class Instructeurs extends Controller
 
                       </tr>";
         }
+        
         $data = [
             'title' => "Instructeurs in dienst",
-            'rows' => $rows
+            'rows' => $rows,
+            'aantal' => $aantal
         ];
         
         $this->view('Instructeurs/index', $data);

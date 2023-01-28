@@ -4,7 +4,8 @@
 
 
 <u><h1><?php echo $data['title']; ?></h1></u>
-<p>Aantal instructeurs</p>
+<p>Aantal instructeurs: <?php echo $data['aantal'];?></p>
+
 
 <table border='1'>
     <thead>
