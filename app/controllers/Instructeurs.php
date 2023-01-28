@@ -44,18 +44,28 @@ $aantal = count($result);
     {   
         $result = $this->instructeurModel->getVoertuigInfo($instructeurId);
         $result2 = $this->instructeurModel->getInstructeurById($instructeurId);
-// var_dump($result2);
-        if ($result2) {
-            $date = new DateTimeImmutable($result2[0]->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
-            $date = $date->Format('d-m-Y');
-            $instructeurId = $result2[0]->Id;
-            $naam = $result2[0]->Voornaam . " " . $result2[0]->Tussenvoegsel . " " . $result2[0]->Achternaam;
-            $sterren = $result2[0]->AantalSterren;
-        } else {
-            $naam = '';
-            $sterren = '';
-            $date = '';
-        }
+// var_dump($result);
+
+if (empty($result)) {
+    $NotAvailable = "Er zijn op dit moment nog geen voertuigen toegewezen aan deze instructeur";
+    header('Refresh:3; url=' . URLROOT . 'Instructeurs/index/');
+
+    } else {
+        $NotAvailable = '';
+    }
+
+    if ($result2) {
+        $date = new DateTimeImmutable($result2[0]->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
+        $date = $date->Format('d-m-Y');
+        $instructeurId = $result2[0]->Id;
+        $naam = $result2[0]->Voornaam . " " . $result2[0]->Tussenvoegsel . " " . $result2[0]->Achternaam;
+        $sterren = $result2[0]->AantalSterren;
+    } else {
+        $naam = '';
+        $sterren = '';
+        $date = '';
+    }
+
     // var_dump($result);
 
         $rows = '';
@@ -77,6 +87,7 @@ $aantal = count($result);
             'naam' => $naam,
             'date' => $date,
             'sterren' => $sterren,
+            'notAvailable' => $NotAvailable,
             'instructeurId' => $instructeurId
 
         ];

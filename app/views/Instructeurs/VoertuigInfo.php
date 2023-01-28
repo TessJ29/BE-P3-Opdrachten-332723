@@ -3,8 +3,9 @@
 
 <h1><u><?= $data['title']; ?></u></h1>
 
+<h3><?= $data['notAvailable']; ?></h3>
 <p>Naam: <?php echo $data['naam'];?></p>
-<h5>Datum in dienst: <?= $data['date']; ?></h5>
+<p>Datum in dienst: <?= $data['date']; ?></p>
 <p>Aantal sterren: <?= $data['sterren'];?></p>
 
 <table border='1'>

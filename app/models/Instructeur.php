@@ -18,7 +18,8 @@ class Instructeur
                                             ,Instructeur.DatumInDienst
                                             ,Instructeur.AantalSterren
                                             ,Instructeur.Id
-                                            FROM Instructeur");
+                                            FROM Instructeur
+                                            ORDER BY Instructeur.AantalSterren desc");
 
 
         $result = $this->db->resultSet();
@@ -49,7 +50,9 @@ class Instructeur
                                 ON VoertuigInstructeur.InstructeurId = Instructeur.Id
                                 INNER JOIN TypeVoertuig
                                 ON Voertuig.TypeVoertuigId = TypeVoertuig.Id
-                                WHERE Instructeur.Id = :Id");
+                                WHERE Instructeur.Id = :Id
+                                GROUP BY TypeVoertuig.Rijbewijscategorie
+                                ");
 
 
 $this->db->bind(':Id', $instructeurId);  
