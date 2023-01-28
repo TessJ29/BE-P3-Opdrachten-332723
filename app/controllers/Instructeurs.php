@@ -24,7 +24,7 @@ class Instructeurs extends Controller
                         <td>$value->Mobiel</td>
                         <td>{$d->format('d-m-Y')}</td>
                         <td>$value->AantalSterren</td>
-                        <td><a href='" . URLROOT . "/Instructeurs/VoertuigInfo/{$value->Id}'>Voertuigen</a></td>
+                        <td><a href='" . URLROOT . "/Instructeurs/VoertuigInfo/{$value->Id}'><img src='" . URLROOT . "/img/car-icon.png' class='caricon' alt='carIcon'></a></td>
 
                       </tr>";
         }
@@ -39,12 +39,14 @@ class Instructeurs extends Controller
     public function VoertuigInfo($instructeurId)
     {   
         $result = $this->instructeurModel->getVoertuigInfo($instructeurId);
-        if ($result) {
-            $date = new DateTimeImmutable($result[0]->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
+        $result2 = $this->instructeurModel->getInstructeurById($instructeurId);
+// var_dump($result2);
+        if ($result2) {
+            $date = new DateTimeImmutable($result2[0]->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
             $date = $date->Format('d-m-Y');
-            $instructeurId = $result[0]->InstructeurId;
-            $naam = $result[0]->Voornaam . " " . $result[0]->Tussenvoegsel . " " . $result[0]->Achternaam;
-            $sterren = $result[0]->AantalSterren;
+            $instructeurId = $result2[0]->Id;
+            $naam = $result2[0]->Voornaam . " " . $result2[0]->Tussenvoegsel . " " . $result2[0]->Achternaam;
+            $sterren = $result2[0]->AantalSterren;
         } else {
             $naam = '';
             $sterren = '';
@@ -64,6 +66,7 @@ class Instructeurs extends Controller
                         <td>$value->Rijbewijscategorie</td>
                     </tr>";
         }
+
         $data = [
             'title' => "Door instructeur gebruikte voertuigen",
             'rows' => $rows,
@@ -74,5 +77,10 @@ class Instructeurs extends Controller
 
         ];
         $this->view('Instructeurs/VoertuigInfo', $data);
+    }
+
+    public function instName()
+    {
+        
     }
 }

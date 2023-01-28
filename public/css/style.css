@@ -11,3 +11,9 @@ div.lesInfoError {
     font-size: 0.7em;
     color: red;
 }
+
+img.caricon {
+    height: 40px;
+    width: 40px;
+}
+

@@ -61,13 +61,18 @@ $this->db->bind(':Id', $instructeurId);
     
     public function getInstructeurById($instructeurId)
     {
-        $this->db->query("SELECT Instructeur.Voornaam
-        FROM VoertuigInstructeur
-        INNER JOIN Instructeur
-        ON VoertuigInstructeur.InstructeurId = Instructeur.Id
-        WHERE InstructeurId = :InstructeurId");
+        $this->db->query("SELECT Voornaam
+                                ,Tussenvoegsel
+                                ,Achternaam
+                                ,DatumInDienst
+                                ,AantalSterren
+                                ,Id
+                            FROM Instructeur
+                            WHERE Id = :Id
+");
 
-$this->db->bind(':LessonId', $instructeurId);
+$this->db->bind(':Id', $instructeurId);
+
 $result = $this->db->resultSet();
 return $result;
     }

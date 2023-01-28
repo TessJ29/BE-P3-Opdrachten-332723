@@ -1,4 +1,6 @@
 <?php require(APPROOT . '/views/includes/header.php');?>
+<link rel="stylesheet" href="<?=URLROOT;?>/css/style.css">
+
 
 
 <u><h1><?php echo $data['title']; ?></h1></u>
