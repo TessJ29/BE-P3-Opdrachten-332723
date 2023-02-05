@@ -55,13 +55,41 @@ class Instructeur
                                 ");
 
 
-$this->db->bind(':Id', $instructeurId);  
-                                
+        $this->db->bind(':Id', $instructeurId);
+
         $result = $this->db->resultSet();
 
-        return $result;                      
+        return $result;
     }
-    
+
+
+    public function getVoertuig()
+    {
+        $this->db->query("SELECT Voertuig.Kenteken
+                            ,Voertuig.Type
+                            ,Voertuig.Bouwjaar
+                            ,Voertuig.Brandstof
+                            ,TypeVoertuig.TypeVoertuig
+                            ,TypeVoertuig.Rijbewijscategorie
+                            ,Voertuig.Id as VoertuigId
+                            ,TypeVoertuig.Id as VoertuigTypeId
+                            ,Instructeur.Id as InstructeurId
+                            FROM VoertuigInstructeur
+                            INNER JOIN Voertuig
+                            ON VoertuigInstructeur.VoertuigId = Voertuig.Id
+                            INNER JOIN Instructeur
+                            ON VoertuigInstructeur.InstructeurId = Instructeur.Id
+                            INNER JOIN TypeVoertuig
+                            ON Voertuig.TypeVoertuigId = TypeVoertuig.Id
+                            WHERE InstructeurId = :Id
+                            ");
+        $this->db->bind(':Id', NULL);
+
+        $result = $this->db->resultSet();
+        return $result;
+    }
+
+
     public function getInstructeurById($instructeurId)
     {
         $this->db->query("SELECT Voornaam
@@ -74,9 +102,9 @@ $this->db->bind(':Id', $instructeurId);
                             WHERE Id = :Id
 ");
 
-$this->db->bind(':Id', $instructeurId);
+        $this->db->bind(':Id', $instructeurId);
 
-$result = $this->db->resultSet();
-return $result;
+        $result = $this->db->resultSet();
+        return $result;
     }
 }
