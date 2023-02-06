@@ -94,8 +94,52 @@ if (empty($result)) {
         $this->view('Instructeurs/VoertuigInfo', $data);
     }
 
-    public function instName()
+    public function addVoertuig($instructeurId)
     {
+        $result = $this->instructeurModel->getVoertuig();
+        $result2 = $this->instructeurModel->getInstructeurById($instructeurId);
+        if (empty($result)) {
+            $NotAvailable = "Er zijn op dit moment nog geen voertuigen toegewezen aan deze instructeur";
+            // header('Refresh:3; url=' . URLROOT . 'Instructeurs/index/');
         
+            } else {
+                $NotAvailable = '';
+            }
+        
+            if ($result2) {
+                $date = new DateTimeImmutable($result2[0]->DatumInDienst, new DateTimeZone('Europe/Amsterdam'));
+                $date = $date->Format('d-m-Y');
+                $instructeurId = $result2[0]->Id;
+                $naam = $result2[0]->Voornaam . " " . $result2[0]->Tussenvoegsel . " " . $result2[0]->Achternaam;
+                $sterren = $result2[0]->AantalSterren;
+            } else {
+                $naam = '';
+                $sterren = '';
+                $date = '';
+            }
+        $rows = '';
+        foreach($result as $value) {
+            $rows .= "<tr>
+                        <td>$value->TypeVoertuig</td>
+                        <td>$value->Type</td>
+                        <td>$value->Kenteken</td>
+                        <td>$value->Bouwjaar</td>
+                        <td>$value->Brandstof</td>
+                        <td>$value->Rijbewijscategorie</td>
+                        <td><a href='" . URLROOT . "/Instructeurs/AddVoertuigInfo/{$value->VoertuigId}'><img src='" . URLROOT . "/img/car-icon.png' class='caricon' alt='carIcon'></a></td>
+
+                        </tr>";
+        }
+
+
+        $data = [
+            'title' => "Alle beschikbare voertuigen",
+            'rows' => $rows,
+            'naam' => $naam,
+            'date' => $date,
+            'sterren' => $sterren,
+            'instructeurId' => $instructeurId
+        ];
+        $this->View('Instructeurs/addVoertuig', $data);
     }
 }
