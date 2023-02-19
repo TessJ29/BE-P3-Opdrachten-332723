@@ -126,7 +126,9 @@ if (empty($result)) {
                         <td>$value->Bouwjaar</td>
                         <td>$value->Brandstof</td>
                         <td>$value->Rijbewijscategorie</td>
-                        <td><a href='" . URLROOT . "/Instructeurs/AddVoertuigInfo/{$value->VoertuigId}'><img src='" . URLROOT . "/img/car-icon.png' class='caricon' alt='carIcon'></a></td>
+                        <td>$value->Voornaam</td>
+                        <td><a href='" . URLROOT . "/Instructeurs/AddVoertuigInfo/{$value->VoertuigId}'>Toevoegen</a></td>
+                        <td><a href='" . URLROOT . "/Instructeurs/updateVoertuigInfo/{$value->VoertuigId}'>Wijzigen</a></td>
 
                         </tr>";
         }
@@ -141,5 +143,10 @@ if (empty($result)) {
             'instructeurId' => $instructeurId
         ];
         $this->View('Instructeurs/addVoertuig', $data);
+    }
+
+    public function updateVoertuigInfo()
+    {
+        $this->View('Instructeurs/updateVoertuigInfo');
     }
 }
