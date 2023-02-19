@@ -50,7 +50,7 @@ class Instructeur
                                 ON VoertuigInstructeur.InstructeurId = Instructeur.Id
                                 INNER JOIN TypeVoertuig
                                 ON Voertuig.TypeVoertuigId = TypeVoertuig.Id
-                                WHERE Instructeur.Id = :Id
+                                WHERE VoertuigInstructeur.InstructeurId = :Id
                                 GROUP BY TypeVoertuig.Rijbewijscategorie
                                 ");
 
@@ -91,11 +91,15 @@ class Instructeur
         ,TypeVoertuig.Rijbewijscategorie
         ,Voertuig.Id as VoertuigId
         ,TypeVoertuig.Id as VoertuigTypeId
+        ,Instructeur.Id as InstructeurId
+        ,Instructeur.Voornaam
         FROM VoertuigInstructeur
         INNER JOIN Voertuig
         ON VoertuigInstructeur.VoertuigId = Voertuig.Id
         INNER JOIN TypeVoertuig
         ON Voertuig.TypeVoertuigId = TypeVoertuig.Id
+        Right JOIN Instructeur
+        ON VoertuigInstructeur.InstructeurId = Instructeur.Id
         ");
 
         $result = $this->db->resultSet();
