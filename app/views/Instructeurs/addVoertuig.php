@@ -14,14 +14,16 @@
         <th>Bouwjaar</th>
         <th>Brandstof</th>
         <th>Rijbewijscategorie</th>
+        <th>Instructeur</th>
         <th>Toevoegen</th>
+        <th>Wijzigen</th>
     </thead>
     <tbody>
         <?= $data['rows']; ?>
     </tbody>
 </table>
 <br>
-<a href="<?= URLROOT; ?>/Instructeurs/VoertuigInfo/">
+<a href="<?= URLROOT; ?>/Instructeurs/VoertuigInfo/<?= $data['instructeurId']; ?>">
     <input type="button" value="Terug naar overzicht met voertuigen">
 </a>
 
